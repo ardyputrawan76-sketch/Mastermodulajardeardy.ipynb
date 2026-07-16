@@ -1,0 +1,1246 @@
+<html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Modul Ajar PJOK - Deep Learning & AI Coach</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 260px; }
+        .tab-active { border-bottom: 3px solid #0f172a; color: #0f172a; font-weight: 700; }
+        .glass-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+        .glass-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px -2px rgba(0,0,0,0.05); }
+        .ai-glow { box-shadow: 0 0 20px rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); }
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #f59e0b; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Audio Waves */
+        .wave-bar { width: 3px; height: 6px; background-color: #3b82f6; border-radius: 1px; display: inline-block; animation: bounce 1.2s ease-in-out infinite; }
+        .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+        @keyframes bounce { 0%, 100% { height: 6px; } 50% { height: 20px; } }
+    </style>
+</head>
+<body class="min-h-screen pb-12">
+
+    <!-- Header Section -->
+    <header class="bg-slate-900 text-white py-6 px-6 shadow-md mb-6">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <p class="text-amber-500 text-xs font-bold uppercase tracking-widest flex items-center gap-1">
+                    ⚡ Modul Ajar PJOK Inovatif & Asisten Lapangan
+                </p>
+                <h1 id="headerMateriTitle" class="text-2xl md:text-3xl font-bold mt-1">Aktivitas Kebugaran Jasmani: Deep Learning</h1>
+                <div class="flex flex-wrap gap-2 mt-3 text-[11px] opacity-90">
+                    <span class="bg-slate-800 border border-slate-700 px-2.5 py-1 rounded">👨‍🏫 Gede Ardy Putrawan, S.Pd.</span>
+                    <span class="bg-slate-800 border border-slate-700 px-2.5 py-1 rounded">🏫 SDN 8 Banjar Anyar</span>
+                    <span class="bg-slate-800 border border-slate-700 px-2.5 py-1 rounded">👥 60 Siswa</span>
+                    <span class="bg-slate-800 border border-slate-700 px-2.5 py-1 rounded">🏸 Lapangan Bulutangkis</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <!-- Word RTF Downloader Button (Antipeluru) -->
+                <button onclick="downloadAsRtfDocument()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center gap-2 shadow-sm transition-all whitespace-nowrap">
+                    📥 Unduh Word (Lengkap)
+                </button>
+                <div class="bg-slate-800 border border-slate-700 p-2 rounded-xl flex items-center gap-2">
+                    <div class="w-8 h-8 rounded bg-amber-500/10 flex items-center justify-center text-lg">🤖</div>
+                    <div class="hidden sm:block">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase">Engine AI</p>
+                        <p class="text-[10px] text-amber-500 font-semibold">Gemini Flash & TTS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4">
+        
+        <!-- Generator Materi Baru (AI Universal Engine) -->
+        <section class="glass-card p-5 border-amber-200 bg-amber-50/20 mb-6">
+            <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                🛠️ Generator Materi Baru (AI Engine)
+            </h3>
+            <div class="flex flex-col md:flex-row gap-3">
+                <div class="flex-1">
+                    <input type="text" id="aiNewSubjectInput" placeholder="Contoh: Permainan Kasti, Senam Lantai, Lompat Jauh, Pencak Silat..." class="w-full p-2.5 text-xs border border-slate-300 rounded-lg focus:ring-1 focus:ring-amber-500 bg-white">
+                </div>
+                <div class="w-full md:w-36">
+                    <select id="aiNewSubjectClass" class="w-full p-2.5 text-xs border border-slate-300 rounded-lg bg-white">
+                        <option value="Fase C / Kelas V">Kelas V (Fase C)</option>
+                        <option value="Fase C / Kelas VI">Kelas VI (Fase C)</option>
+                        <option value="Fase B / Kelas IV">Kelas IV (Fase B)</option>
+                    </select>
+                </div>
+                <button onclick="generateNewSubjectModule()" class="bg-slate-900 text-amber-400 hover:bg-slate-800 font-bold py-2.5 px-4 rounded-lg text-xs transition-all flex items-center justify-center gap-2 whitespace-nowrap">
+                    <span>⚡ Jalankan AI Engine</span>
+                    <div id="subjectEngineSpinner" class="spinner hidden border-t-amber-500"></div>
+                </button>
+            </div>
+            <p class="text-[10px] text-slate-400 mt-2">
+                *Peringatan: Jika Anda menggunakan Generator AI, teks unduhan Word akan berubah sesuai dengan hasil generasi AI. Untuk mengunduh RPP asli Anda secara utuh, klik tombol "Unduh Word" sebelum menjalankan fitur ini.
+            </p>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex overflow-x-auto space-x-6 border-b border-slate-200 mb-6 no-scrollbar">
+            <button onclick="switchTab('ringkasan')" id="tab-ringkasan" class="pb-3 px-1 whitespace-nowrap tab-active transition-all text-xs md:text-sm">Ringkasan</button>
+            <button onclick="switchTab('strategi')" id="tab-strategi" class="pb-3 px-1 whitespace-nowrap transition-all text-slate-500 text-xs md:text-sm">Strategi Lapangan</button>
+            <button onclick="switchTab('alur')" id="tab-alur" class="pb-3 px-1 whitespace-nowrap transition-all text-slate-500 text-xs md:text-sm">Alur Belajar</button>
+            <button onclick="switchTab('penilaian')" id="tab-penilaian" class="pb-3 px-1 whitespace-nowrap transition-all text-slate-500 text-xs md:text-sm">Penilaian & Kalkulator</button>
+            <button onclick="switchTab('referensi')" id="tab-referensi" class="pb-3 px-1 whitespace-nowrap transition-all text-slate-500 text-xs md:text-sm">Glosarium</button>
+            <button onclick="switchTab('ai')" id="tab-ai" class="pb-3 px-1 whitespace-nowrap transition-all text-amber-600 font-bold flex items-center gap-1 text-xs md:text-sm">Asisten Lapangan 🤖</button>
+        </nav>
+
+        <!-- Tab: Ringkasan -->
+        <section id="content-ringkasan" class="space-y-6">
+            <div class="glass-card p-6">
+                <h2 class="text-lg font-bold mb-3 flex items-center">
+                    <span class="bg-amber-100 p-1.5 rounded-lg mr-2 text-amber-600">🎯</span> Tujuan Pembelajaran Integratif
+                </h2>
+                <p id="ringkasanTpText" class="leading-relaxed italic text-slate-600 text-sm mb-4">
+                    "Melalui model pembelajaran Station Rotation berbasis Deep Learning, peserta didik dapat mempraktikkan latihan daya tahan dan kekuatan otot secara aman dalam ruang terbatas secara bergantian, menganalisis hubungan antara intensitas aktivitas fisik dengan frekuensi denyut nadi secara kritis, serta menunjukkan sikap gotong royong dan mandiri dalam mengelola aktivitas kelompok."
+                </p>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                        <p class="text-[10px] font-bold text-slate-400 mb-1">KKTP 1 (KINERJA)</p>
+                        <p id="kktp1Text" class="text-xs font-semibold text-slate-700">Praktik Gerak Aman (Shuttle-run, squat, lompat bayangan)</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                        <p class="text-[10px] font-bold text-slate-400 mb-1">KKTP 2 (KOGNITIF)</p>
+                        <p id="kktp2Text" class="text-xs font-semibold text-slate-700">Analisis Kognitif (Hitung Nadi & Alasan Biologis)</p>
+                    </div>
+                    <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                        <p class="text-[10px] font-bold text-slate-400 mb-1">KKTP 3 (SIKAP)</p>
+                        <p id="kktp3Text" class="text-xs font-semibold text-slate-700">Karakter Gotong Royong (Berbagi peran adil & empati keselamatan)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-6">
+                <h2 class="text-lg font-bold mb-2">Rasio Kepadatan Lapangan Bulutangkis</h2>
+                <p class="text-xs text-slate-500 mb-4">Grafik di bawah menggambarkan pentingnya manajemen rotasi agar 60 anak dapat berlatih dengan aman di area lapangan bulutangkis.</p>
+                <div class="chart-container">
+                    <canvas id="densityChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Strategi Lapangan -->
+        <section id="content-strategi" class="hidden space-y-6">
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-bold mb-3">Solusi Taktikal: Sistem 3-Zona Lapangan</h3>
+                <p id="strategiLapanganDesc" class="text-xs text-slate-500 mb-6 leading-relaxed">
+                    Siswa dibagi menjadi 6 Kelompok (Kelompok 1 sampai 6) masing-masing berisi 10 siswa. Pada satu waktu, hanya ada 2 kelompok yang bergerak aktif secara fisik di lapangan, sementara kelompok lain bertindak sebagai pengamat, pencatat data fisik (data recorder), dan penganalisis gerakan (peer-coach).
+                </p>
+                <div class="chart-container mb-6">
+                    <canvas id="rotationChart"></canvas>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div class="p-4 bg-emerald-50 border border-emerald-100 rounded-xl">
+                        <span class="block text-xl mb-1">🏃</span>
+                        <h4 class="font-bold text-emerald-800 text-xs uppercase tracking-wider">Zona 1: Gerak Aktif</h4>
+                        <p id="zona1Task" class="text-[11px] text-emerald-700 mt-1">Melakukan latihan sirkuit fisik di dalam area lapangan utama (Shuttle-run, Squat, Cardio Jump).</p>
+                    </div>
+                    <div class="p-4 bg-sky-50 border border-sky-100 rounded-xl">
+                        <span class="block text-xl mb-1">⏱️</span>
+                        <h4 class="font-bold text-sky-800 text-xs uppercase tracking-wider">Zona 2: Pendamping</h4>
+                        <p id="zona2Task" class="text-[11px] text-sky-700 mt-1">Bertanggung jawab memastikan temannya melakukan gerakan dengan aman dan menyemangati secara positif.</p>
+                    </div>
+                    <div class="p-4 bg-amber-50 border border-amber-100 rounded-xl">
+                        <span class="block text-xl mb-1">📝</span>
+                        <h4 class="font-bold text-amber-800 text-xs uppercase tracking-wider">Zona 3: Analis Nadi</h4>
+                        <p id="zona3Task" class="text-[11px] text-amber-700 mt-1">Menggunakan stopwatch menginstruksikan waktu dan menghitung denyut nadi (dikali 4 untuk BPM).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Alur Belajar -->
+        <section id="content-alur" class="hidden space-y-6">
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-bold mb-4">Timeline Pembelajaran (70 Menit)</h3>
+                <div class="relative border-l-2 border-slate-200 ml-3 space-y-6">
+                    <div class="ml-6 relative">
+                        <span class="absolute -left-[31px] top-1 w-4 h-4 bg-slate-900 rounded-full border-4 border-white"></span>
+                        <h4 class="font-bold text-xs md:text-sm">A. Kegiatan Pendahuluan (15 Menit)</h4>
+                        <p id="timelineIntro" class="text-xs text-slate-600 mt-1 leading-relaxed">Orientasi & Doa. Presensi & Pengkondisian Fisik (berbaris melingkar). Apersepsi & Pertanyaan Pemantik (mencari denyut nadi awal). Pemanasan Dinamis Terbatas.</p>
+                    </div>
+                    <div class="ml-6 relative">
+                        <span class="absolute -left-[31px] top-1 w-4 h-4 bg-amber-500 rounded-full border-4 border-white"></span>
+                        <h4 class="font-bold text-xs md:text-sm">B. Kegiatan Inti (45 Menit)</h4>
+                        <p id="timelineCore" class="text-xs text-slate-600 mt-1 leading-relaxed">Tahap 1: Pengorganisasian Kelompok & Peran (5 Menit). Tahap 2: Simulasi dan Rotasi Peran (30 Menit - Ronde 1, 2, 3 berputar). Tahap 3: Diskusi Kelompok Kecil & Pengonseptualisasian (10 Menit).</p>
+                    </div>
+                    <div class="ml-6 relative">
+                        <span class="absolute -left-[31px] top-1 w-4 h-4 bg-emerald-500 rounded-full border-4 border-white"></span>
+                        <h4 class="font-bold text-xs md:text-sm">C. Kegiatan Penutup (10 Menit)</h4>
+                        <p id="timelineOutro" class="text-xs text-slate-600 mt-1 leading-relaxed">Pendinginan (Cooling Down), Refleksi Mendalam, Apresiasi & Umpan Balik Positif, Doa Penutup & Pembubaran.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Penilaian & Kalkulator -->
+        <section id="content-penilaian" class="hidden space-y-6">
+            <!-- Rubrik Penilaian -->
+            <div class="glass-card p-6 overflow-hidden">
+                <h3 class="text-lg font-bold mb-3">Rubrik Penilaian Kompetensi</h3>
+                <div class="overflow-x-auto rounded-lg border border-slate-200">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-200">
+                                <th class="p-3 border-r font-bold text-slate-700">Aspek Kriteria</th>
+                                <th class="p-3 border-r font-bold text-slate-700">Skor 4 (Sangat Baik)</th>
+                                <th class="p-3 border-r font-bold text-slate-700">Skor 3 (Baik)</th>
+                                <th class="p-3 font-bold text-slate-700">Skor 1 (Perlu Bimbingan)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td id="rubrikAspek1" class="p-3 border-r font-semibold text-slate-800">Analisis Hubungan Aktivitas & Denyut Nadi</td>
+                                <td id="rubrikS4Aspek1" class="p-3 border-r text-slate-600">Mampu menjelaskan secara ilmiah dan logis hubungan peningkatan intensitas gerakan dengan meningkatnya detak jantung sebagai suplai oksigen.</td>
+                                <td id="rubrikS3Aspek1" class="p-3 border-r text-slate-600">Mampu menjelaskan bahwa gerakan yang cepat membuat detak jantung naik, namun penjelasan biologisnya belum lengkap.</td>
+                                <td id="rubrikS1Aspek1" class="p-3 text-slate-600">Tidak dapat menjelaskan hubungan antara aktivitas fisik dengan perubahan denyut nadi.</td>
+                            </tr>
+                            <tr class="bg-slate-50 border-b">
+                                <td id="rubrikAspek2" class="p-3 border-r font-semibold text-slate-800">Teknik Gerak Aman</td>
+                                <td id="rubrikS4Aspek2" class="p-3 border-r text-slate-600">Melakukan seluruh gerakan dengan teknik postur tubuh tegak, pendaratan kaki lembut, menjaga keseimbangan, dan tidak berisiko cedera.</td>
+                                <td id="rubrikS3Aspek2" class="p-3 border-r text-slate-600">Melakukan gerakan dengan teknik yang benar, namun sesekali kehilangan keseimbangan saat melakukan rotasi cepat.</td>
+                                <td id="rubrikS1Aspek2" class="p-3 text-slate-600">Gerakan tidak sesuai instruksi teknik dasar dan membahayakan keselamatan diri sendiri atau orang lain.</td>
+                            </tr>
+                            <tr>
+                                <td id="rubrikAspek3" class="p-3 border-r font-semibold text-slate-800">Sikap Gotong Royong</td>
+                                <td id="rubrikS4Aspek3" class="p-3 border-r text-slate-600">Sangat aktif membantu memantau waktu, memberikan koreksi gerak yang sopan, dan menyemangati rekan satu kelompok tanpa diminta.</td>
+                                <td id="rubrikS3Aspek3" class="p-3 border-r text-slate-600">Aktif membantu memantau waktu dan membagikan peran dalam kelompok dengan tertib.</td>
+                                <td id="rubrikS1Aspek3" class="p-3 text-slate-600">Pasif, tidak peduli dengan pembagian peran, atau mengganggu ketertiban kelompok lain.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Kalkulator Nilai Interaktif -->
+            <div class="glass-card p-6 border-sky-100 bg-sky-50/10">
+                <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-1.5">
+                    🧮 Kalkulator Nilai Formatif Lapangan (Instan)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <label id="calcLabel1" class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Skor Kriteria 1 (Kognitif):</label>
+                        <select id="score1" onchange="calculateLiveGrade()" class="w-full p-2 text-xs border border-slate-300 rounded-md bg-white">
+                            <option value="4">4 - Sangat Baik</option>
+                            <option value="3" selected>3 - Baik</option>
+                            <option value="2">2 - Cukup</option>
+                            <option value="1">1 - Perlu Bimbingan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label id="calcLabel2" class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Skor Kriteria 2 (Keterampilan):</label>
+                        <select id="score2" onchange="calculateLiveGrade()" class="w-full p-2 text-xs border border-slate-300 rounded-md bg-white">
+                            <option value="4">4 - Sangat Baik</option>
+                            <option value="3" selected>3 - Baik</option>
+                            <option value="2">2 - Cukup</option>
+                            <option value="1">1 - Perlu Bimbingan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label id="calcLabel3" class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Skor Kriteria 3 (Karakter):</label>
+                        <select id="score3" onchange="calculateLiveGrade()" class="w-full p-2 text-xs border border-slate-300 rounded-md bg-white">
+                            <option value="4">4 - Sangat Baik</option>
+                            <option value="3" selected>3 - Baik</option>
+                            <option value="2">2 - Cukup</option>
+                            <option value="1">1 - Perlu Bimbingan</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-slate-900 text-white rounded-lg">
+                    <div>
+                        <p class="text-[9px] uppercase font-bold text-slate-400">Total Nilai Akhir</p>
+                        <p id="liveGradeResult" class="text-lg font-mono font-bold text-amber-400">75.00 / 100</p>
+                    </div>
+                    <span id="liveGradeStatus" class="bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded text-[10px] font-bold border border-emerald-500/30">MEMENUHI KKTP (>= 75)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Referensi -->
+        <section id="content-referensi" class="hidden space-y-6">
+            <div class="glass-card p-6">
+                <h3 class="text-lg font-bold mb-3">Glosarium Khusus</h3>
+                <div id="glossaryContainer" class="grid md:grid-cols-2 gap-4">
+                    <div class="p-4 border border-slate-100 bg-slate-50/50 rounded-xl">
+                        <strong class="text-slate-800 text-xs">Active HR (Heart Rate)</strong>
+                        <p class="text-[11px] text-slate-500 mt-1">Frekuensi denyut nadi/detak jantung yang diukur secara manual langsung sesaat setelah seseorang selesai melakukan latihan fisik intensif.</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 bg-slate-50/50 rounded-xl">
+                        <strong class="text-slate-800 text-xs">BPM (Beats Per Minute)</strong>
+                        <p class="text-[11px] text-slate-500 mt-1">Satuan internasional untuk menghitung frekuensi detak jantung dalam hitungan satu menit penuh.</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 bg-slate-50/50 rounded-xl">
+                        <strong class="text-slate-800 text-xs">Deep Learning (Pembelajaran Mendalam)</strong>
+                        <p class="text-[11px] text-slate-500 mt-1">Pendekatan belajar yang menuntut siswa tidak sekadar menghafal gerakan atau teori, melainkan mengalami langsung, merefleksikan, hingga mampu menghubungkan konsep materi dengan kehidupan nyata.</p>
+                    </div>
+                    <div class="p-4 border border-slate-100 bg-slate-50/50 rounded-xl">
+                        <strong class="text-slate-800 text-xs">Peer-Coaching</strong>
+                        <p class="text-[11px] text-slate-500 mt-1">Metode latihan di mana siswa bertindak sebagai tutor atau pelatih sebaya yang bertugas mengamati, memandu keselamatan, dan memberikan umpan balik korektif bagi rekan setimnya.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="glass-card p-6 border-dashed border-2 border-slate-200">
+                <h3 class="text-sm font-bold mb-3">Daftar Pustaka Rujukan</h3>
+                <ul id="bibContainer" class="text-xs space-y-1.5 text-slate-600 list-disc ml-5 leading-relaxed">
+                    <li>Indrawan, A., & Cahyono, F. D. (2024). Pendidikan Jasmani, Olahraga, dan Kesehatan untuk SD/MI Kelas V. Jakarta: Kemendikbudristek.</li>
+                    <li>Kemendikbudristek. (2022). Panduan Pembelajaran dan Asesmen Pendidikan Anak Usia Dini, Pendidikan Dasar, dan Pendidikan Menengah. Jakarta: Badan Standar, Kurikulum, dan Asesmen Pendidikan.</li>
+                    <li>Muhajir, & Prasetijo, T. A. (2022). Buku Panduan Guru Pendidikan Jasmani, Olahraga, dan Kesehatan untuk SD/MI Kelas V. Jakarta: Pusat Kurikulum dan Perbukuan, Kemendikbudristek.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Tab: Asisten AI -->
+        <section id="content-ai" class="hidden space-y-6">
+            
+            <!-- Welcome Info Card with API Key setting -->
+            <div class="glass-card p-6 ai-glow bg-amber-50/40">
+                <h3 class="text-lg font-bold text-amber-800 flex items-center gap-2">
+                    🤖 Laboratorium AI Modul PJOK
+                </h3>
+                <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+                    Gunakan asisten bertenaga AI di bawah ini untuk menyusun strategi cadangan di lapangan secara langsung, menganalisis data nadi siswa, membuat soal kuis HOTS instan, atau bahkan memicu instruksi suara (TTS) untuk mengomandoi kelas SDN 8 Banjar Anyar!
+                </p>
+                <div class="mt-4 pt-3 border-t border-amber-200/50 flex flex-wrap items-center gap-3">
+                    <label class="text-[10px] font-bold text-amber-900 uppercase">Kunci API Gemini (Otomatis):</label>
+                    <input type="password" id="customApiKey" placeholder="Biarkan kosong untuk otomatis Canvas" class="px-3 py-1.5 text-xs border border-amber-200 rounded bg-white focus:outline-none focus:ring-1 focus:ring-amber-500 w-60">
+                    <span class="text-[9px] text-amber-700 bg-amber-100 px-2 py-0.5 rounded font-bold">Canvas Mode Ready</span>
+                </div>
+            </div>
+
+            <!-- AI Sub-sections Grid -->
+            <div class="grid md:grid-cols-2 gap-6">
+                
+                <!-- Card 1: AI Megaphone & Voice Coach -->
+                <div class="glass-card p-5 border-sky-100 bg-sky-50/10 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-sm font-bold text-sky-900 flex items-center gap-1.5">
+                                📢 AI Megaphone (Suara Instruksi)
+                            </h4>
+                            <span class="bg-sky-100 text-sky-800 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">Gemini TTS</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mb-4">
+                            Konversi teks perintah sirkuit menjadi ucapan pengeras suara untuk dicolokkan ke megaphone/speaker lapangan Anda.
+                        </p>
+
+                        <div class="space-y-3 mb-4">
+                            <div>
+                                <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Pilih Komando Latihan:</label>
+                                <select id="ttsPreset" onchange="applyTtsPreset()" class="w-full p-2 bg-white border border-slate-200 rounded-md text-xs">
+                                    <option value="">-- Pilih Instruksi Siap Pakai --</option>
+                                    <option value="pemanasan">"Anak-anak kelas 5, bersiap di luar garis lapangan untuk pemanasan terbatas!"</option>
+                                    <option value="mulai_ronde">"Semua stasiun aktif, dengarkan bunyi peluit dan mulailah bergerak dengan aman!"</option>
+                                    <option value="ganti_ronde">"Waktu habis! Silakan berganti zona searah jarum jam dengan tertib, mulai!"</option>
+                                    <option value="pengukuran_nadi">"Siapkan jari tangan di nadi pergelangan teman. Bersiap hitung, mulai!"</option>
+                                    <option value="pendinginan">"Sirkuit selesai! Semua merapat berkumpul melingkar untuk pendinginan otot!"</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Modifikasi Kalimat Instruksi:</label>
+                                <textarea id="ttsTextInput" rows="2" placeholder="Tulis instruksi khusus Anda..." class="w-full p-2 border border-slate-200 rounded-md text-xs bg-white"></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Karakter Suara:</label>
+                                    <select id="ttsVoice" class="w-full p-1.5 bg-white border border-slate-200 rounded-md text-[11px]">
+                                        <option value="Fenrir" selected>Fenrir (Bersemangat)</option>
+                                        <option value="Kore">Kore (Tegas/Fokus)</option>
+                                        <option value="Zephyr">Zephyr (Ceria)</option>
+                                        <option value="Sulafat">Sulafat (Tenang)</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-end justify-end">
+                                    <div id="audioWaveform" class="hidden items-center gap-1 h-6 mr-2">
+                                        <span class="wave-bar"></span>
+                                        <span class="wave-bar"></span>
+                                        <span class="wave-bar"></span>
+                                        <span class="wave-bar"></span>
+                                        <span class="wave-bar"></span>
+                                    </div>
+                                    <audio id="ttsAudioPlayer" class="hidden" controls></audio>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="generateTtsSpeech()" class="w-full bg-sky-900 text-sky-300 hover:bg-sky-800 font-bold py-2 px-4 rounded-lg text-xs flex items-center justify-center gap-2">
+                        <span>🔊 Bunyikan Instruksi Suara</span>
+                        <div id="ttsSpinner" class="spinner border-t-sky-500 hidden"></div>
+                    </button>
+                </div>
+
+                <!-- Card 2: AI Adaptasi Skenario Darurat -->
+                <div class="glass-card p-5 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                            ⛈️ Adaptasi Lapangan (Skenario Darurat)
+                        </h4>
+                        <p class="text-[11px] text-slate-500 mb-4">
+                            Modifikasi cepat susunan gerak jika cuaca di Banjar Anyar mendadak berubah tidak kondusif.
+                        </p>
+                        
+                        <div class="space-y-3 mb-6">
+                            <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Kondisi Tak Terduga:</label>
+                            <select id="adaptationScenario" class="w-full p-2 bg-white border border-slate-200 rounded-md text-xs">
+                                <option value="hujan_deras">Hujan Lebat (Harus pindah ke dalam ruang kelas biasa)</option>
+                                <option value="panas_ekstrim">Panas Ekstrim (Mencegah risiko kelelahan fatal / asma kumat)</option>
+                                <option value="licin_embun">Pagi Hari Berembun Tebal (Lantai ubin pinggir sangat licin)</option>
+                                <option value="siswa_cedera">Kehadiran Siswa Berkebutuhan Khusus / Fisik Lemah</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button onclick="generateAdaptationPlan()" class="w-full bg-slate-900 text-amber-500 hover:bg-slate-800 font-bold py-2 px-4 rounded-lg text-xs flex items-center justify-center gap-2">
+                        <span>Susun Adaptasi Darurat AI</span>
+                        <div id="adaptationSpinner" class="spinner hidden"></div>
+                    </button>
+                </div>
+
+                <!-- Card 3: AI Analisis Data Nadi LKPD -->
+                <div class="glass-card p-5 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                            💓 Analisis Data Nadi LKPD Cerdas
+                        </h4>
+                        <p class="text-[11px] text-slate-500 mb-4">
+                            Umpan data hasil survei denyut nadi dari stasiun sirkuit ke AI untuk mendapatkan hasil analisis biologis kelas.
+                        </p>
+
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between items-center">
+                                <label class="block text-[9px] font-bold text-slate-400 uppercase">Input Data Nadi Kelompok:</label>
+                                <button onclick="loadSampleLkpdData()" class="text-[10px] text-amber-600 hover:underline font-bold">Gunakan Sampel Data</button>
+                            </div>
+                            <textarea id="lkpdDataInput" rows="4" placeholder="Contoh:&#10;1. Gede - Resting: 70 BPM, Active: 140 BPM&#10;2. Ardy - Resting: 75 BPM, Active: 110 BPM" class="w-full p-2 border border-slate-200 rounded-md font-mono text-xs focus:ring-1 focus:ring-amber-500 bg-slate-50/50"></textarea>
+                        </div>
+                    </div>
+
+                    <button onclick="analyzeLkpdData()" class="w-full bg-slate-900 text-amber-500 hover:bg-slate-800 font-bold py-2 px-4 rounded-lg text-xs flex items-center justify-center gap-2">
+                        <span>Analisis Biologis & Refleksi AI</span>
+                        <div id="analysisSpinner" class="spinner hidden"></div>
+                    </button>
+                </div>
+
+                <!-- Card 4: AI Kuis HOTS Maker -->
+                <div class="glass-card p-5 flex flex-col justify-between border-amber-100">
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-1 flex items-center gap-1.5">
+                            📝 Pembuat Soal Kognitif HOTS
+                        </h4>
+                        <p class="text-[11px] text-slate-500 mb-4">
+                            Buat pertanyaan refleksi kritis berdasarkan target pembelajaran PJOK aktif saat ini.
+                        </p>
+
+                        <div class="space-y-3 mb-6">
+                            <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Aspek Pertanyaan:</label>
+                            <select id="hotsFocus" class="w-full p-2 bg-white border border-slate-200 rounded-md text-xs">
+                                <option value="hubungan_jantung_paru">Sirkulasi Darah, Oksigenasi & Pompa Jantung</option>
+                                <option value="keselamatan_kolaborasi">Pentingnya Gotong Royong / Menjaga Rekan</option>
+                                <option value="kebugaran_keseharian">Implementasi Daya Tahan Fisik pada Kehidupan Sehari-hari</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button onclick="generateHotsQuestions()" class="w-full bg-slate-900 text-amber-500 hover:bg-slate-800 font-bold py-2 px-4 rounded-lg text-xs flex items-center justify-center gap-2">
+                        <span>Buat Pertanyaan Esai HOTS AI</span>
+                        <div id="hotsSpinner" class="spinner hidden"></div>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Global AI Info/Error Alerts -->
+            <div id="aiMessageContainer" class="hidden p-3 rounded-lg text-xs bg-red-50 border border-red-200 text-red-800 flex justify-between items-start">
+                <span id="aiMessageText"></span>
+                <button onclick="hideAiMessage()" class="text-red-500 hover:text-red-700 font-bold ml-2">×</button>
+            </div>
+
+            <!-- Dynamic AI Results Output Box -->
+            <div id="aiOutputCard" class="hidden glass-card p-6 bg-white border border-slate-200 shadow-sm">
+                <div class="flex justify-between items-center mb-3 border-b border-slate-100 pb-2">
+                    <h5 id="aiOutputTitle" class="font-bold text-slate-900 flex items-center gap-2 text-xs md:text-sm">
+                        📋 Hasil Rekomendasi Asisten AI
+                    </h5>
+                    <button onclick="copyAiOutput()" class="text-[10px] bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded transition-all font-bold">
+                        Salin Teks
+                    </button>
+                </div>
+                <div id="aiOutputBody" class="text-xs text-slate-700 leading-relaxed whitespace-pre-wrap font-normal">
+                    <!-- Dynamic Response content -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-400 text-xs">
+        <p>Disetujui oleh: <strong>Kepala SDN 8 Banjar Anyar</strong></p>
+        <p class="mt-1">&copy; 2026 Gede Ardy Putrawan - Modul Ajar PJOK Inovatif</p>
+    </footer>
+
+    <script>
+        // State Management
+        let appData = {
+            materi: "Menjaga Kebugaran Jasmani",
+            subMateri: "Daya Tahan Jantung-Paru dan Kekuatan",
+            faseKelas: "Fase C / Kelas V (Lima)",
+            tujuanPembelajaran: "Melalui model pembelajaran Station Rotation berbasis Deep Learning, peserta didik dapat mempraktikkan latihan daya tahan dan kekuatan otot secara aman dalam ruang terbatas secara bergantian, menganalisis hubungan antara intensitas aktivitas fisik dengan frekuensi denyut nadi secara kritis, serta menunjukkan sikap gotong royong dan mandiri dalam mengelola aktivitas kelompok.",
+            kktp1: "KKTP 1 (Praktik Gerak): Peserta didik mampu memperagakan variasi gerak daya tahan dan kekuatan (shuttle-run, squat, dan lompat bayangan) dengan teknik yang aman di ruang terbatas.",
+            kktp2: "KKTP 2 (Analisis Kognitif): Peserta didik mampu menghitung denyut nadi secara manual dan menjelaskan minimal 2 alasan mengapa aktivitas fisik memengaruhi kecepatan detak jantung berdasarkan hasil diskusi kelompok.",
+            kktp3: "KKTP 3 (Karakter): Peserta didik secara konsisten membagikan peran secara adil dan menunjukkan empati terhadap keselamatan teman satu kelompoknya selama latihan berlangsung.",
+            timelineIntro: "1. Orientasi & Doa: Guru menyapa siswa dengan ramah dan membangun kedekatan emosional. Berdoa bersama dipimpin salah satu siswa. 2. Presensi & Pengkondisian Fisik: Siswa berbaris rapi dalam formasi melingkar mengelilingi garis luar lapangan bulutangkis (formasi luar) untuk menghemat ruang tengah. 3. Apersepsi & Pertanyaan Pemantik (Deep Learning - Dialog): Guru meminta semua siswa menempelkan dua jari di pergelangan tangan kiri atau leher kanan mencari denyut nadi awal (resting heart rate). 4. Pemanasan Dinamis Terbatas: Melakukan peregangan statis dan dinamis di tempat masing-masing tanpa berpindah lokasi guna menghindari benturan fisik.",
+            timelineCore: "Tahap 1: Pengorganisasian Kelompok & Peran (5 Menit). Guru membagi siswa ke dalam 6 kelompok (masing-masing 10 siswa). Setiap kelompok menerima LKPD \"Laboratorium Jantungku\" dan pensil. Guru menjelaskan aturan main \"Sirkuit Detak Jantung\". Tahap 2: Simulasi dan Rotasi Peran (30 Menit - Deep Learning Action). Ronde 1, Ronde 2, dan Ronde 3 secara bergantian. Tahap 3: Diskusi Kelompok Kecil & Pengonseptualisasian (10 Menit). Setelah semua merasakan semua peran, masing-masing kelompok berkumpul di area steril luar lapangan (duduk melingkar kecil) untuk mendiskusikan hasil LKPD mereka.",
+            timelineOutro: "1. Pendinginan (Cooling Down): Dipimpin oleh guru, melakukan gerakan peregangan lambat dengan pengaturan napas yang dalam. Semua siswa berbaris kembali melingkar. 2. Refleksi Mendalam (Deep Learning Reflection): Tanya jawab mengenai aktivitas yang paling menantang dan hubungannya dengan kesehatan jantung. 3. Apresiasi & Umpan Balik Positif: Guru mengapresiasi kerja sama luar biasa dari 60 siswa. 4. Doa Penutup & Pembubaran: Berdoa bersama dan berjabat tangan tertib sebelum kembali ke kelas.",
+            strategiLapanganDesc: "Siswa dibagi menjadi 6 Kelompok (Kelompok 1 sampai 6) masing-masing berisi 10 siswa. Pada satu waktu, hanya ada 2 kelompok yang bergerak aktif secara fisik di lapangan, sementara kelompok lain bertindak sebagai pengamat, pencatat data fisik (data recorder), dan penganalisis gerakan (peer-coach).",
+            zona1Task: "Kelompok Aktif: Melakukan aktivitas fisik di stasiun masing-masing selama 1 menit intensitas sedang, istirahat 30 detik, diulang sebanyak 2 set.",
+            zona2Task: "Kelompok Pendamping: Berdiri di dekat kelompok aktif. Bertanggung jawab memastikan temannya melakukan gerakan dengan aman (misal: posisi punggung tegak saat squat) dan menyemangati secara positif.",
+            zona3Task: "Kelompok Analis: Menggunakan stopwatch membantu menginstruksikan kapan harus mulai dan berhenti. Setelah latihan selesai, penganalisis langsung membantu mencari dan menghitung denyut nadi temannya selama 15 detik (kemudian dikali 4 untuk mengetahui detak jantung per menit / BPM).",
+            rubrikAspek1: "Analisis Hubungan Aktivitas & Denyut Nadi",
+            rubrikS4Aspek1: "Mampu menjelaskan secara ilmiah dan logis hubungan peningkatan intensitas gerakan dengan meningkatnya detak jantung sebagai suplai oksigen.",
+            rubrikS3Aspek1: "Mampu menjelaskan bahwa gerakan yang cepat membuat detak jantung naik, namun penjelasan biologisnya belum lengkap.",
+            rubrikS1Aspek1: "Tidak dapat menjelaskan hubungan antara aktivitas fisik dengan perubahan denyut nadi.",
+            rubrikAspek2: "Teknik Gerak Aman (Shuttle-Run, Squat, Lompat)",
+            rubrikS4Aspek2: "Melakukan seluruh gerakan dengan teknik postur tubuh tegak, pendaratan kaki lembut, menjaga keseimbangan, dan tidak berisiko cedera.",
+            rubrikS3Aspek2: "Melakukan gerakan dengan teknik yang benar, namun sesekali kehilangan keseimbangan saat melakukan rotasi cepat.",
+            rubrikS1Aspek2: "Gerakan tidak sesuai instruksi teknik dasar dan membahayakan keselamatan diri sendiri atau orang lain.",
+            rubrikAspek3: "Gotong Royong",
+            rubrikS4Aspek3: "Sangat aktif membantu memantau waktu, memberikan koreksi gerak yang sopan, dan menyemangati rekan satu kelompok tanpa diminta.",
+            rubrikS3Aspek3: "Aktif membantu memantau waktu dan membagikan peran dalam kelompok dengan tertib.",
+            rubrikS1Aspek3: "Pasif, tidak peduli dengan pembagian peran, atau mengganggu ketertiban kelompok lain.",
+            glossary: [
+                { term: "Active HR (Heart Rate)", desc: "Frekuensi denyut nadi/detak jantung yang diukur secara manual langsung sesaat setelah seseorang selesai melakukan latihan fisik intensif." },
+                { term: "BPM (Beats Per Minute)", desc: "Satuan internasional untuk menghitung frekuensi detak jantung dalam hitungan satu menit penuh." },
+                { term: "Cardiorespiratory (Daya Tahan Jantung-Paru)", desc: "Kemampuan sistem jantung, paru-paru, dan pembuluh darah untuk berfungsi secara optimal dalam menyuplai oksigen ke otot-otot yang aktif saat melakukan aktivitas fisik dalam waktu yang lama." },
+                { term: "Cooperative Learning", desc: "Pendekatan pembelajaran yang menekankan kerja sama kelompok kecil secara terstruktur demi mencapai tujuan belajar bersama." },
+                { term: "Deep Learning", desc: "Pendekatan belajar yang menuntut siswa tidak sekadar menghafal gerakan atau teori, melainkan mengalami langsung, merefleksikan, hingga mampu menghubungkan konsep materi dengan kehidupan nyata mereka sehari-hari." },
+                { term: "Peer-Coaching", desc: "Metode latihan di mana siswa bertindak sebagai tutor atau pelatih sebaya yang bertugas mengamati, memandu keselamatan, dan memberikan umpan balik korektif bagi rekan setimnya." },
+                { term: "Resting HR (Denyut Nadi Istirahat)", desc: "Frekuensi detak jantung seseorang dalam satu menit saat tubuh berada dalam kondisi rileks, tenang, dan tidak sedang melakukan aktivitas berat." },
+                { term: "Station Rotation", desc: "Strategi pengelolaan kelas dengan cara membagi siswa ke dalam kelompok-kelompok yang berputar melalui beberapa pos (stasiun) aktivitas yang berbeda dalam waktu yang telah ditentukan secara berkala." }
+            ]
+        };
+
+        let densityChart, rotationChart;
+
+        window.onload = function() {
+            initCharts();
+            calculateLiveGrade();
+        };
+
+        function switchTab(tabId) {
+            const tabs = ['ringkasan', 'strategi', 'alur', 'penilaian', 'referensi', 'ai'];
+            tabs.forEach(t => {
+                document.getElementById(`tab-${t}`).classList.remove('tab-active');
+                document.getElementById(`tab-${t}`).classList.add('text-slate-500');
+                document.getElementById(`content-${t}`).classList.add('hidden');
+            });
+            document.getElementById(`tab-${tabId}`).classList.add('tab-active');
+            document.getElementById(`tab-${tabId}`).classList.remove('text-slate-500');
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+        }
+
+        function calculateLiveGrade() {
+            const s1 = parseInt(document.getElementById('score1').value) || 0;
+            const s2 = parseInt(document.getElementById('score2').value) || 0;
+            const s3 = parseInt(document.getElementById('score3').value) || 0;
+            const finalGrade = ((s1 + s2 + s3) / 12) * 100;
+            
+            document.getElementById('liveGradeResult').innerText = finalGrade.toFixed(2) + " / 100";
+            const statusEl = document.getElementById('liveGradeStatus');
+            if (finalGrade >= 75) {
+                statusEl.innerText = "MEMENUHI KKTP (>= 75)";
+                statusEl.className = "bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded text-[10px] font-bold border border-emerald-500/30";
+            } else {
+                statusEl.innerText = "DI BAWAH KKTP (< 75)";
+                statusEl.className = "bg-red-500/20 text-red-400 px-2.5 py-1 rounded text-[10px] font-bold border border-red-500/30";
+            }
+        }
+
+        function initCharts() {
+            const ctx1 = document.getElementById('densityChart').getContext('2d');
+            densityChart = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: ['Siswa Aktif Serentak', 'Kapasitas Aman Lapangan', 'Siswa Aktif (Sistem 3-Zona)'],
+                    datasets: [{
+                        label: 'Rasio Jumlah Murid (Jiwa)',
+                        data: [60, 20, 20],
+                        backgroundColor: ['#ef4444', '#10b981', '#3b82f6'],
+                        borderWidth: 0,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, max: 70 } }
+                }
+            });
+
+            const ctx2 = document.getElementById('rotationChart').getContext('2d');
+            rotationChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Kelompok Gerak Aktif', 'Kelompok Pendamping', 'Kelompok Analis Nadi'],
+                    datasets: [{
+                        data: [20, 20, 20],
+                        backgroundColor: ['#10b981', '#0ea5e9', '#f59e0b'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } } }
+                }
+            });
+        }
+
+        // Apply dynamic updates to DOM
+        function updateDashboardUI() {
+            document.getElementById('headerMateriTitle').innerText = appData.materi + ": Deep Learning";
+            document.getElementById('ringkasanTpText').innerText = `"${appData.tujuanPembelajaran}"`;
+            
+            document.getElementById('kktp1Text').innerText = appData.kktp1;
+            document.getElementById('kktp2Text').innerText = appData.kktp2;
+            document.getElementById('kktp3Text').innerText = appData.kktp3;
+            
+            document.getElementById('strategiLapanganDesc').innerText = appData.strategiLapanganDesc;
+            document.getElementById('zona1Task').innerText = appData.zona1Task;
+            document.getElementById('zona2Task').innerText = appData.zona2Task;
+            document.getElementById('zona3Task').innerText = appData.zona3Task;
+
+            document.getElementById('timelineIntro').innerText = appData.timelineIntro;
+            document.getElementById('timelineCore').innerText = appData.timelineCore;
+            document.getElementById('timelineOutro').innerText = appData.timelineOutro;
+
+            document.getElementById('rubrikAspek1').innerText = appData.rubrikAspek1;
+            document.getElementById('rubrikS4Aspek1').innerText = appData.rubrikS4Aspek1;
+            document.getElementById('rubrikS3Aspek1').innerText = appData.rubrikS3Aspek1;
+            document.getElementById('rubrikS1Aspek1').innerText = appData.rubrikS1Aspek1;
+
+            document.getElementById('rubrikAspek2').innerText = appData.rubrikAspek2;
+            document.getElementById('rubrikS4Aspek2').innerText = appData.rubrikS4Aspek2;
+            document.getElementById('rubrikS3Aspek2').innerText = appData.rubrikS3Aspek2;
+            document.getElementById('rubrikS1Aspek2').innerText = appData.rubrikS1Aspek2;
+
+            document.getElementById('rubrikAspek3').innerText = appData.rubrikAspek3;
+            document.getElementById('rubrikS4Aspek3').innerText = appData.rubrikS4Aspek3;
+            document.getElementById('rubrikS3Aspek3').innerText = appData.rubrikS3Aspek3;
+            document.getElementById('rubrikS1Aspek3').innerText = appData.rubrikS1Aspek3;
+
+            document.getElementById('calcLabel1').innerText = "Skor " + appData.rubrikAspek1 + ":";
+            document.getElementById('calcLabel2').innerText = "Skor " + appData.rubrikAspek2 + ":";
+            document.getElementById('calcLabel3').innerText = "Skor " + appData.rubrikAspek3 + ":";
+
+            // Update Glossary
+            let glossHtml = '';
+            appData.glossary.forEach(item => {
+                glossHtml += `
+                <div class="p-4 border border-slate-100 bg-slate-50/50 rounded-xl">
+                    <strong class="text-slate-800 text-xs">${item.term}</strong>
+                    <p class="text-[11px] text-slate-500 mt-1">${item.desc}</p>
+                </div>`;
+            });
+            document.getElementById('glossaryContainer').innerHTML = glossHtml;
+        }
+
+        // Call Custom API Wrapper with Exponential Backoff
+        async function fetchGeminiApi(prompt, systemInstruction = "", retries = 5, delay = 1000) {
+            const customKey = document.getElementById('customApiKey').value;
+            const apiKey = customKey || ""; 
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+            if (systemInstruction) {
+                payload.systemInstruction = { parts: [{ text: systemInstruction }] };
+            }
+
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+                    }
+                } catch (error) {
+                    // Fail silently, retry
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2; 
+            }
+            throw new Error("Gagal terhubung dengan server AI. Mohon periksa koneksi internet Anda.");
+        }
+
+        async function fetchGeminiTts(text, voiceName = "Fenrir", retries = 5, delay = 1000) {
+            const customKey = document.getElementById('customApiKey').value;
+            const apiKey = customKey || "";
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: `Say in a loud megaphone-coaching voice, in Indonesian language: ${text}` }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: voiceName }
+                        }
+                    }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        const base64Audio = data.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+                        if (base64Audio) return base64Audio;
+                    }
+                } catch (error) {
+                    // Fail silently, retry
+                }
+                await new Promise(resolve => setTimeout(resolve, delay));
+                delay *= 2;
+            }
+            throw new Error("Gagal mengunduh berkas audio dari server AI.");
+        }
+
+        // AI Feature: Generator Materi Baru (JSON Structured Output)
+        async function generateNewSubjectModule() {
+            const targetSubject = document.getElementById('aiNewSubjectInput').value.trim();
+            const selectedClass = document.getElementById('aiNewSubjectClass').value;
+            if (!targetSubject) {
+                showAiMessage("Silakan tulis nama materi PJOK terlebih dahulu (misal: Permainan Bola Kasti)!");
+                return;
+            }
+
+            const spinner = document.getElementById('subjectEngineSpinner');
+            spinner.classList.remove('hidden');
+            hideAiMessage();
+
+            const prompt = `Buatkan RPP PJOK Kurikulum Merdeka berbasis Deep Learning secara lengkap dengan kondisi:
+            Materi: ${targetSubject}
+            Fase/Kelas: ${selectedClass}
+            Nama Guru: Gede Ardy Putrawan, S.Pd.
+            Asal Sekolah: SD Negeri 8 Banjar Anyar
+            Jumlah Murid: 60 anak
+            Tantangan Lapangan: Sangat sempit seukuran lapangan bulutangkis (81.7 meter persegi).
+            Rencana Strategi Rotasi: Membagi 60 murid ke dalam 3-zona peran berputar agar aman.
+
+            Harus mengembalikan output dalam format JSON murni dengan property persis seperti di bawah tanpa menyertakan kode markdown atau teks tambahan di luar JSON:
+            {
+                "materi": "Nama Materi Utama",
+                "subMateri": "Sub-fokus Gerak",
+                "tujuanPembelajaran": "Tujuan Pembelajaran Gabungan Sikap, Pengetahuan, dan Keterampilan secara integratif (1 kalimat panjang)",
+                "kktp1": "Praktik Gerak Aman (KKTP Kinerja)",
+                "kktp2": "Analisis Kognitif (KKTP Pengetahuan)",
+                "kktp3": "Karakter Gotong Royong (KKTP Sikap)",
+                "timelineIntro": "Kegiatan Pendahuluan 15 menit lengkap",
+                "timelineCore": "Kegiatan Inti Sirkuit 3-Zona 45 menit lengkap",
+                "timelineOutro": "Kegiatan Penutup 10 menit lengkap",
+                "strategiLapanganDesc": "Penjelasan modifikasi taktis pembagian zona lapangan agar aman",
+                "zona1Task": "Tugas fisik spesifik di Zona Aktif 1 sesuai materi baru ini",
+                "zona2Task": "Tugas spesifik di Zona Pendamping 2 sesuai materi baru ini",
+                "zona3Task": "Tugas spesifik di Zona Analis 3 sesuai materi baru ini",
+                "rubrikAspek1": "Nama Kriteria Penilaian Kognitif",
+                "rubrikS4Aspek1": "Deskripsi Skor Sangat Baik Kognitif",
+                "rubrikS3Aspek1": "Deskripsi Skor Baik Kognitif",
+                "rubrikS1Aspek1": "Deskripsi Skor Perlu Bimbingan Kognitif",
+                "rubrikAspek2": "Nama Kriteria Penilaian Keterampilan Gerak",
+                "rubrikS4Aspek2": "Deskripsi Skor Sangat Baik Keterampilan Gerak",
+                "rubrikS3Aspek2": "Deskripsi Skor Baik Keterampilan Gerak",
+                "rubrikS1Aspek2": "Deskripsi Skor Perlu Bimbingan Keterampilan Gerak",
+                "rubrikAspek3": "Nama Kriteria Penilaian Karakter Sikap",
+                "rubrikS4Aspek3": "Deskripsi Skor Sangat Baik Karakter Sikap",
+                "rubrikS3Aspek3": "Deskripsi Skor Baik Karakter Sikap",
+                "rubrikS1Aspek3": "Deskripsi Skor Perlu Bimbingan Karakter Sikap",
+                "glossary": [
+                    {"term": "Istilah Olahraga 1", "desc": "Penjelasan singkat 1"},
+                    {"term": "Istilah Olahraga 2", "desc": "Penjelasan singkat 2"},
+                    {"term": "Istilah Olahraga 3", "desc": "Penjelasan singkat 3"},
+                    {"term": "Istilah Olahraga 4", "desc": "Penjelasan singkat 4"}
+                ]
+            }`;
+
+            try {
+                const responseText = await fetchGeminiApi(prompt, "You are a master developer of curriculum materials in Indonesia. Return only raw, valid JSON with exact requested properties.");
+                const cleanJsonText = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
+                const parsedData = JSON.parse(cleanJsonText);
+
+                appData = { ...appData, ...parsedData };
+                appData.faseKelas = selectedClass;
+
+                updateDashboardUI();
+                calculateLiveGrade();
+                switchTab('ringkasan');
+                showAiMessage("Sukses! Asisten web Anda kini sudah beralih materi mengajar secara otomatis.", "emerald");
+            } catch (err) {
+                showAiMessage("Gagal memuat materi baru: " + err.message);
+            } finally {
+                spinner.classList.add('hidden');
+            }
+        }
+
+        // AI Feature: TTS (Text-to-Speech)
+        function applyTtsPreset() {
+            const selectEl = document.getElementById('ttsPreset');
+            const textEl = document.getElementById('ttsTextInput');
+            if (selectEl.value) {
+                textEl.value = selectEl.options[selectEl.selectedIndex].text.replace(/"/g, '');
+            }
+        }
+
+        async function generateTtsSpeech() {
+            const text = document.getElementById('ttsTextInput').value.trim();
+            const voice = document.getElementById('ttsVoice').value;
+            if (!text) {
+                showAiMessage("Silakan ketik atau pilih kalimat komando instruksi terlebih dahulu!");
+                return;
+            }
+
+            const spinner = document.getElementById('ttsSpinner');
+            const waveform = document.getElementById('audioWaveform');
+            spinner.classList.remove('hidden');
+            hideAiMessage();
+
+            try {
+                const base64Audio = await fetchGeminiTts(text, voice);
+                
+                // Convert raw base64 signed PCM into a valid playable WAV
+                const binaryString = window.atob(base64Audio);
+                const len = binaryString.length;
+                const bytes = new Uint8Array(len);
+                for (let i = 0; i < len; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
+
+                const sampleRate = 24000;
+                const wavHeader = new ArrayBuffer(44);
+                const view = new DataView(wavHeader);
+                
+                writeString(view, 0, 'RIFF');
+                view.setUint32(4, 36 + len, true);
+                writeString(view, 8, 'WAVE');
+                writeString(view, 12, 'fmt ');
+                view.setUint32(16, 16, true); 
+                view.setUint16(20, 1, true); 
+                view.setUint16(22, 1, true); 
+                view.setUint32(24, sampleRate, true); 
+                view.setUint32(28, sampleRate * 2, true); 
+                view.setUint16(32, 2, true); 
+                view.setUint16(34, 16, true); 
+                writeString(view, 36, 'data');
+                view.setUint32(40, len, true); 
+
+                const combinedBlob = new Blob([wavHeader, bytes], { type: 'audio/wav' });
+                const audioUrl = URL.createObjectURL(combinedBlob);
+                
+                const player = document.getElementById('ttsAudioPlayer');
+                player.src = audioUrl;
+                player.classList.remove('hidden');
+                
+                waveform.classList.remove('hidden');
+                waveform.classList.add('flex');
+                
+                player.play();
+                player.onended = () => {
+                    waveform.classList.add('hidden');
+                    waveform.classList.remove('flex');
+                };
+
+            } catch (err) {
+                showAiMessage("Gagal memanggil asisten suara: " + err.message);
+            } finally {
+                spinner.classList.add('hidden');
+            }
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        // AI Feature: Adaptasi Skenario Darurat
+        async function generateAdaptationPlan() {
+            const scenario = document.getElementById('adaptationScenario').value;
+            const spinner = document.getElementById('adaptationSpinner');
+            spinner.classList.remove('hidden');
+            hideAiMessage();
+
+            const prompt = `Buatkan rekomendasi taktis modifikasi RPP PJOK darurat.
+            Materi: ${appData.materi}
+            Fase/Kelas: ${appData.faseKelas}
+            Jumlah Murid: 60 anak
+            Masalah Lapangan: Lapangan bulutangkis sempit
+            Kondisi Darurat Terkini: ${scenario}
+
+            Berikan langkah taktis detail untuk:
+            1. Rekayasa Ruang (Bagaimana menata 60 anak)
+            2. Rekayasa Gerak Fisik (Bagaimana gerakan disesuaikan agar aman dan tidak memicu bahaya cedera/penyakit)
+            3. Rencana Pengawasan Peer-Coach (Pembagian tugas rekan)
+
+            Berikan penjelasan yang praktis, ramah, dan sangat adaptif dalam bahasa Indonesia terstruktur dengan markdown yang indah.`;
+
+            try {
+                const response = await fetchGeminiApi(prompt, "You are an expert PJOK consultant in Indonesia. Give very actionable, safe, and professional safety advice.");
+                showAiOutput("⛈️ Hasil Rekomendasi Adaptasi Darurat", response);
+            } catch (err) {
+                showAiMessage("Gagal menyusun adaptasi: " + err.message);
+            } finally {
+                spinner.classList.add('hidden');
+            }
+        }
+
+        // AI Feature: Analisis LKPD Data Nadi
+        function loadSampleLkpdData() {
+            document.getElementById('lkpdDataInput').value = 
+                `1. Kadek - Resting: 70 BPM, Active: 148 BPM (Sangat Bugar)\n` +
+                `2. Putu - Resting: 76 BPM, Active: 135 BPM (Sirkuit Selesai, Nafas stabil)\n` +
+                `3. Nyoman - Resting: 82 BPM, Active: 120 BPM (Asma ringan, tempo sengaja diperlambat)\n` +
+                `4. Ketut - Resting: 68 BPM, Active: 155 BPM (Semangat tinggi, pemulihan cepat)`;
+        }
+
+        async function analyzeLkpdData() {
+            const dataInput = document.getElementById('lkpdDataInput').value.trim();
+            if (!dataInput) {
+                showAiMessage("Silakan isi data sampel atau klik 'Muat Contoh Data' terlebih dahulu!");
+                return;
+            }
+
+            const spinner = document.getElementById('analysisSpinner');
+            spinner.classList.remove('hidden');
+            hideAiMessage();
+
+            const prompt = `Analisis data denyut nadi (Resting vs Active HR) siswa berikut untuk pelajaran PJOK:
+            Materi: ${appData.materi}
+            Data Siswa:
+            ${dataInput}
+
+            Sediakan:
+            1. Analisis Fisiologis (Bagaimana efisiensi sistem kardiovaskular siswa berdasarkan denyut jantungnya, hubungkan dengan konsep biologi olahraga)
+            2. Pertanyaan Pemantik Refleksi Mendalam (2 Pertanyaan HOTS yang bisa ditanyakan langsung oleh Pak Gede di kelas untuk melatih berpikir kritis)
+            3. Masukan Pedagogis khusus untuk menguatkan pemahaman kesehatan mereka.`;
+
+            try {
+                const response = await fetchGeminiApi(prompt, "You are a clinical sports scientist and master teacher in Indonesia. Formulate friendly but deeply scientific feedback.");
+                showAiOutput("💓 Analisis Biologis Nadi & Pertanyaan HOTS", response);
+            } catch (err) {
+                showAiMessage("Gagal menganalisis data nadi: " + err.message);
+            } finally {
+                spinner.classList.add('hidden');
+            }
+        }
+
+        // AI Feature: HOTS Kuis Maker
+        async function generateHotsQuestions() {
+            const focus = document.getElementById('hotsFocus').value;
+            const spinner = document.getElementById('hotsSpinner');
+            spinner.classList.remove('hidden');
+            hideAiMessage();
+
+            const prompt = `Buatkan 3 soal esai evaluasi kognitif High Order Thinking Skills (HOTS) beserta kunci jawabannya untuk materi PJOK:
+            Materi: ${appData.materi}
+            Fase/Kelas: ${appData.faseKelas}
+            Aspek Fokus Pertanyaan: ${focus}
+
+            Pertanyaan harus melatih siswa menganalisis, mengevaluasi, atau berkreasi, bukan sekadar hafalan. Buat dengan bahasa anak SD Kelas V/VI yang mudah dipahami namun bermakna mendalam.`;
+
+            try {
+                const response = await fetchGeminiApi(prompt, "You are a senior test designer for Indonesian Ministry of Education. Generate high-quality HOTS questions with clear grading criteria.");
+                showAiOutput("📝 Pertanyaan Esai Evaluasi HOTS", response);
+            } catch (err) {
+                showAiMessage("Gagal merancang soal HOTS: " + err.message);
+            } finally {
+                spinner.classList.add('hidden');
+            }
+        }
+
+        // Helpers for AI UI Outputs
+        function showAiOutput(title, body) {
+            document.getElementById('aiOutputTitle').innerText = title;
+            document.getElementById('aiOutputBody').innerText = body;
+            document.getElementById('aiOutputCard').classList.remove('hidden');
+            document.getElementById('aiOutputCard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyAiOutput() {
+            const bodyText = document.getElementById('aiOutputBody').innerText;
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = bodyText;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+            showAiMessage("Teks asisten AI berhasil disalin ke clipboard!", "emerald");
+        }
+
+        function showAiMessage(msg, type = "red") {
+            const container = document.getElementById('aiMessageContainer');
+            const text = document.getElementById('aiMessageText');
+            text.innerText = msg;
+            container.classList.remove('hidden', 'bg-red-50', 'border-red-200', 'text-red-800', 'bg-emerald-50', 'border-emerald-200', 'text-emerald-800');
+            if (type === "emerald") {
+                container.classList.add('bg-emerald-50', 'border-emerald-200', 'text-emerald-800');
+            } else {
+                container.classList.add('bg-red-50', 'border-red-200', 'text-red-800');
+            }
+            container.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hideAiMessage() {
+            document.getElementById('aiMessageContainer').classList.add('hidden');
+        }
+
+        // ==========================================
+        //  ANTIPELURU RICH TEXT FORMAT (RTF) EXPORTER - FULL UN-SUMMARIZED CONTENT
+        // ==========================================
+        function downloadAsRtfDocument() {
+            function encodeToRtfUnicode(str) {
+                if (!str) return "";
+                return str.replace(/[^\x00-\x7F]/g, function(c) {
+                    return "\\u" + c.charCodeAt(0) + "?";
+                });
+            }
+
+            // FULL, EXACT CONTENT from the user's prompt hardcoded to prevent any AI summarization.
+            // When user clicks download, they get exactly what they pasted.
+            let rtfContent = `{\\rtf1\\ansi\\deff0{\\fonttbl{\\f0\\fnil\\fcharset0 Arial;}}
+{\\colortbl ;\\red0\\green0\\blue0;}
+\\paperw11906\\paperh16838\\margl1440\\margr1440\\margt1440\\margb1440
+\\f0\\fs22
+
+{\\qc \\fs28\\b MODUL AJAR (RPP) KURIKULUM MERDEKA PJOK \\b0 \\line}
+{\\qc \\fs24\\b AKTIVITAS KEBUGARAN JASMANI (PENDIDIKAN MENDALAM / DEEP LEARNING) \\b0 \\line\\line}
+
+{\\fs24\\b I. INFORMASI UMUM \\b0 \\line}
+Nama Penyusun: Gede Ardy Putrawan, S.Pd. \\line
+Instansi: SD Negeri 8 Banjar Anyar \\line
+Tahun Penyusunan: 2026 \\line
+Jenjang Sekolah: Sekolah Dasar (SD) \\line
+Fase / Kelas: Fase C / Kelas V (Lima) \\line
+Mata Pelajaran: Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK) \\line
+Materi Pokok: Menjaga Kebugaran Jasmani (Daya Tahan Jantung-Paru dan Kekuatan) \\line
+Alokasi Waktu: (1 Pertemuan) \\line
+Jumlah Peserta Didik: 60 Siswa \\line
+Moda Pembelajaran: Tatap Muka (Luring) \\line
+Target Peserta Didik: Peserta didik reguler/tipikal (tidak ada kesulitan dalam mencerna materi ajar). \\line
+Model Pembelajaran: Project-Based Cooperative Learning & Station Rotation berbasis Deep Learning (Mengalami, Merefleksikan, Mengonseptualisasikan). \\line\\line
+
+{\\fs24\\b II. KOMPONEN INTI \\b0 \\line}
+{\\b A. Kompetensi Awal (Prasyarat) \\b0 \\line}
+Sebelum memulai pembelajaran ini, peserta didik idealnya sudah memahami konsep dasar bahwa aktivitas fisik dapat membuat tubuh lelah dan detak jantung meningkat, serta mampu melakukan gerakan motorik dasar (melompat, berlari, dan menekuk lutut) secara mandiri. \\line\\line
+
+{\\b B. Sarana & Prasarana \\b0 \\line}
+1. Lapangan Bulutangkis: Ukuran standar (Rasio ruang: padat untuk 60 siswa). \\line
+2. Peralatan: \\line
+- Stopwatch / Handphone guru & siswa (6 buah). \\line
+- Peluit untuk komando guru. \\line
+- LKPD Kebugaran "Laboratorium Jantungku" (6 lembar) & alat tulis. \\line
+- Penanda stasiun (Cone/kertas penanda stasiun 1, 2, dan 3). \\line\\line
+
+{\\b C. Profil Pelajar Pancasila \\b0 \\line}
+1. Gotong Royong: Berkolaborasi dalam kelompok, berbagi peran (pelaku, pencatat, pengawas keselamatan), dan saling mendukung selama aktivitas. \\line
+2. Mandiri: Bertanggung jawab memantau kondisi fisik diri sendiri, jujur dalam mencatat data detak jantung, serta berupaya melakukan gerakan dengan teknik yang benar. \\line\\line
+
+{\\b D. Tujuan Pembelajaran (Integratif) \\b0 \\line}
+Melalui model pembelajaran Station Rotation berbasis Deep Learning, peserta didik dapat mempraktikkan latihan daya tahan dan kekuatan otot secara aman dalam ruang terbatas secara bergantian, menganalisis hubungan antara intensitas aktivitas fisik dengan frekuensi denyut nadi secara kritis, serta menunjukkan sikap gotong royong dan mandiri dalam mengelola aktivitas kelompok. \\line\\line
+
+{\\b E. Kriteria Ketercapaian Tujuan Pembelajaran (KKTP) \\b0 \\line}
+1. KKTP 1 (Praktik Gerak): Peserta didik mampu memperagakan variasi gerak daya tahan dan kekuatan (shuttle-run, squat, dan lompat bayangan) dengan teknik yang aman di ruang terbatas. \\line
+2. KKTP 2 (Analisis Kognitif): Peserta didik mampu menghitung denyut nadi secara manual dan menjelaskan minimal 2 alasan mengapa aktivitas fisik memengaruhi kecepatan detak jantung berdasarkan hasil diskusi kelompok. \\line
+3. KKTP 3 (Karakter): Peserta didik secara konsisten membagikan peran secara adil dan menunjukkan empati terhadap keselamatan teman satu kelompoknya selama latihan berlangsung. \\line\\line
+
+{\\b F. Pemahaman Bermakna (Deep Learning Concept) \\b0 \\line}
+Bukan Sekadar Lelah, tetapi Paham: Tubuh kita adalah sistem yang terintegrasi. Saat kita bergerak aktif, otot membutuhkan lebih banyak oksigen. Jantung merespons dengan memompa darah lebih cepat (ditandai dengan meningkatnya denyut nadi). \\line
+Aplikasi Nyata: Peserta didik memahami bahwa memiliki jantung yang bugar membuat mereka tidak mudah lelah saat belajar di kelas, bersepeda ke sekolah, atau membantu orang tua di rumah. \\line\\line
+
+{\\b G. Pertanyaan Pemantik \\b0 \\line}
+1. "Mengapa saat kita berlari kencang, dada kita terasa berdetak sangat cepat dan napas kita menjadi terengah-engah?" \\line
+2. "Bagaimana cara kita membuktikan bahwa jantung kita bekerja lebih keras saat kita berolahraga tanpa harus menggunakan mesin medis yang rumit?" \\line\\line
+
+{\\fs24\\b III. TANTANGAN LAPANGAN & SOLUSI TAKTIKAL \\b0 \\line}
+Dimensi Lapangan: Lapangan Bulutangkis \\line
+Rasio Ruang: Sangat padat jika 60 siswa bergerak bersamaan. \\line
+Strategi Manajemen Kelas (The "Three-Zone" Rotation): \\line
+Siswa dibagi menjadi 6 Kelompok (Kelompok 1 sampai 6) masing-masing berisi 10 siswa. Pada satu waktu, hanya ada 2 kelompok yang bergerak aktif secara fisik di lapangan, sementara kelompok lain bertindak sebagai pengamat, pencatat data fisik (data recorder), dan penganalisis gerakan (peer-coach). \\line\\line
+
+{\\fs24\\b IV. KEGIATAN PEMBELAJARAN (70 MENIT) \\b0 \\line}
+{\\b A. Kegiatan Pendahuluan (15 Menit) - Mindful & Connecting \\b0 \\line}
+1. Orientasi & Doa: Guru menyapa siswa dengan ramah dan membangun kedekatan emosional. Berdoa bersama dipimpin salah satu siswa. \\line
+2. Presensi & Pengkondisian Fisik: Siswa berbaris rapi dalam formasi melingkar mengelilingi garis luar lapangan bulutangkis (formasi luar) untuk menghemat ruang tengah. \\line
+3. Apersepsi & Pertanyaan Pemantik (Deep Learning - Dialog): \\line
+- Guru meminta semua siswa menempelkan dua jari di pergelangan tangan kiri atau leher kanan mencari denyut nadi awal (resting heart rate). \\line
+- "Rasakan ketukannya. Apakah lambat atau cepat? Sekarang mari kita lompat di tempat 10 kali secara perlahan." \\line
+- "Rasakan lagi nadinya. Apakah ada perubahan? Mengapa itu terjadi?" \\line
+4. Pemanasan Dinamis Terbatas: Melakukan peregangan statis dan dinamis di tempat masing-masing tanpa berpindah lokasi guna menghindari benturan fisik. \\line\\line
+
+{\\b B. Kegiatan Inti (45 Menit) - Meaningful, Active & Cooperative \\b0 \\line}
+Tahap 1: Pengorganisasian Kelompok & Peran (5 Menit) \\line
+- Guru membagi siswa ke dalam 6 kelompok (masing-masing 10 siswa). \\line
+- Setiap kelompok menerima LKPD "Laboratorium Jantungku" dan pensil. \\line
+- Guru menjelaskan aturan main "Sirkuit Detak Jantung" di lapangan bulutangkis yang dibagi menjadi 3 stasiun mini: \\line
+  * Stasiun 1 (Sisi Kiri): Agility Shuttle-Run pendek (jarak 5 meter bolak-balik). \\line
+  * Stasiun 2 (Tengah): Modified Strength Station (Squat atau push-up dinding/lutut secara periodik). \\line
+  * Stasiun 3 (Sisi Kanan): Cardio Jump (Melompat tali tanpa tali / lompat bayangan cepat). \\line\\line
+
+Tahap 2: Simulasi dan Rotasi Peran (30 Menit - Deep Learning Action) \\line
+Siklus perputaran kelompok dirancang agar ruang lapangan bulutangkis tetap longgar dan kondusif: \\line
+- Ronde 1 (8 Menit): Kelompok 1 & 2 (Stasiun 1 & 2 aktif). Kelompok 3 & 4 (Pendamping). Kelompok 5 & 6 (Analis). \\line
+- Ronde 2 (8 Menit): Kelompok 3 & 4 (Stasiun 2 & 3 aktif). Kelompok 5 & 6 (Pendamping). Kelompok 1 & 2 (Analis). \\line
+- Ronde 3 (8 Menit): Kelompok 5 & 6 (Stasiun 3 & 1 aktif). Kelompok 1 & 2 (Pendamping). Kelompok 3 & 4 (Analis). \\line
+(Sisa waktu 6 menit digunakan untuk transisi perpindahan kelompok secara tertib). \\line\\line
+
+Tugas Detail Setiap Peran: \\line
+- Kelompok Aktif: Melakukan aktivitas fisik di stasiun masing-masing selama 1 menit intensitas sedang, istirahat 30 detik, diulang sebanyak 2 set. \\line
+- Kelompok Pendamping: Berdiri di dekat kelompok aktif. Bertanggung jawab memastikan temannya melakukan gerakan dengan aman (misal: posisi punggung tegak saat squat) dan menyemangati secara positif. \\line
+- Kelompok Analis: Menggunakan stopwatch membantu menginstruksikan kapan harus mulai dan berhenti. Setelah latihan selesai, penganalisis langsung membantu mencari dan menghitung denyut nadi temannya selama 15 detik (kemudian dikali 4 untuk mengetahui detak jantung per menit / BPM). \\line\\line
+
+Tahap 3: Diskusi Kelompok Kecil & Pengonseptualisasian (10 Menit) \\line
+Setelah semua merasakan semua peran, masing-masing kelompok berkumpul di area steril luar lapangan (duduk melingkar kecil) untuk mendiskusikan hasil LKPD mereka. \\line\\line
+
+{\\b C. Kegiatan Penutup (10 Menit) - Reflection & Joyful \\b0 \\line}
+1. Pendinginan (Cooling Down): Dipimpin oleh guru, melakukan gerakan peregangan lambat dengan pengaturan napas yang dalam. Semua siswa berbaris kembali melingkar. \\line
+2. Refleksi Mendalam (Deep Learning Reflection): \\line
+- "Anak-anak, hari ini lapangan kita sangat sempit, tetapi apakah kalian merasa tetap bisa berkeringat dan belajar banyak hal?" \\line
+- "Siapa yang detak nadinya tadi tembus di atas 120 kali per menit? Apa yang kalian rasakan pada tubuh kalian? Mengapa itu tanda yang baik untuk kesehatan jantung?" \\line
+3. Apresiasi & Umpan Balik Positif: Guru mengapresiasi kerja sama luar biasa dari 60 siswa yang mampu menjaga ketertiban, keselamatan, dan kebersihan selama proses sirkuit latihan di ruang terbatas. \\line
+4. Doa Penutup & Pembubaran: Berdoa bersama dan berjabat tangan tertib sebelum kembali ke kelas. \\line\\line
+
+\\page
+
+{\\fs24\\b V. ASESMEN PEMBELAJARAN \\b0 \\line}
+{\\b A. Rubrik Asesmen Sikap (Profil Pelajar Pancasila) \\b0 \\line}
+Teknik Penilaian: Observasi Guru & Penilaian Antarteman selama aktivitas kelompok. \\line
+Kriteria Sikap (Gotong Royong): \\line
+- Skor 4 (Sangat Baik): Sangat aktif membantu memantau waktu, memberikan koreksi gerak yang sopan, dan menyemangati rekan satu kelompok tanpa diminta. \\line
+- Skor 3 (Baik): Aktif membantu memantau waktu dan membagikan peran dalam kelompok dengan tertib. \\line
+- Skor 2 (Cukup): Hanya fokus pada tugas diri sendiri dan kurang berinteraksi membantu rekan kelompok. \\line
+- Skor 1 (Perlu Bimbingan): Pasif, tidak peduli dengan pembagian peran, atau mengganggu ketertiban kelompok lain. \\line\\line
+Kriteria Sikap (Mandiri): \\line
+- Skor 4 (Sangat Baik): Menunjukkan tanggung jawab tinggi dalam melakukan gerakan dengan teknik yang benar dan jujur mencatat data denyut nadi sendiri/teman apa adanya. \\line
+- Skor 3 (Baik): Melakukan tugas gerak secara mandiri dan mencatat data denyut nadi dengan bantuan minimal dari guru. \\line
+- Skor 2 (Cukup): Melakukan gerakan secara asal-asalan dan membutuhkan pengawasan ketat agar mau mencatat data. \\line
+- Skor 1 (Perlu Bimbingan): Tidak bersedia melakukan aktivitas fisik atau tidak mau berpartisipasi mengisi data kebugaran. \\line\\line
+
+{\\b B. Rubrik Asesmen Pengetahuan (Kognitif - Deep Learning) \\b0 \\line}
+Teknik Penilaian: Penilaian LKPD Kelompok (Lembar Kerja Diskusi Mendalam). \\line
+Indikator (Analisis Hubungan Aktivitas & Denyut Nadi): \\line
+- Skor 4: Mampu menjelaskan secara ilmiah dan logis hubungan peningkatan intensitas gerakan dengan meningkatnya detak jantung sebagai suplai oksigen. \\line
+- Skor 3: Mampu menjelaskan bahwa gerakan yang cepat membuat detak jantung naik, namun penjelasan biologisnya belum lengkap. \\line
+- Skor 2: Hanya mampu menyebutkan bahwa detak jantung menjadi lebih cepat setelah olahraga tanpa tahu alasannya. \\line
+- Skor 1: Tidak dapat menjelaskan hubungan antara aktivitas fisik dengan perubahan denyut nadi. \\line\\line
+Indikator (Konseptualisasi Kebugaran Nyata): \\line
+- Skor 4: Mampu menguraikan minimal 3 manfaat konkret menjaga kesehatan jantung-paru dalam kehidupan sehari-hari (misal: belajar konsentrasi, tidak mudah lelah). \\line
+- Skor 3: Mampu menyebutkan 2 manfaat nyata kesehatan jantung-paru bagi aktivitas sehari-hari di rumah/sekolah. \\line
+- Skor 2: Hanya mampu menyebutkan 1 manfaat umum seperti "agar tubuh sehat saja". \\line
+- Skor 1: Tidak mampu menyebutkan manfaat kebugaran jantung bagi kehidupan sehari-hari. \\line\\line
+
+{\\b C. Rubrik Asesmen Keterampilan (Psikomotor) \\b0 \\line}
+Teknik Penilaian: Unjuk Kerja Praktik Gerak Terbimbing di Lapangan Sempit. \\line
+Kriteria (Teknik Gerak Aman: Shuttle-Run, Squat, Lompat): \\line
+- Skor 4: Melakukan seluruh gerakan dengan teknik postur tubuh tegak, pendaratan kaki lembut, menjaga keseimbangan, dan tidak berisiko cedera. \\line
+- Skor 3: Melakukan gerakan dengan teknik yang benar, namun sesekali kehilangan keseimbangan saat melakukan rotasi cepat. \\line
+- Skor 2: Melakukan gerakan dengan postur yang kurang tepat (misal: punggung terlalu membungkuk saat squat) sehingga berisiko cedera. \\line
+- Skor 1: Gerakan tidak sesuai instruksi teknik dasar dan membahayakan keselamatan diri sendiri atau orang lain. \\line\\line
+Kriteria (Pemanfaatan Ruang Terbatas): \\line
+- Skor 4: Sangat disiplin menjaga posisi gerak di dalam garis batas stasiun masing-masing tanpa menyenggol teman di sekitarnya. \\line
+- Skor 3: Bergerak dengan aktif, namun sesekali melewati batas stasiun tanpa sengaja menyentuh teman. \\line
+- Skor 2: Sering keluar dari batas stasiun latihan sehingga mengganggu kelancaran kelompok yang lain. \\line
+- Skor 1: Tidak memperdulikan ruang gerak stasiun, berlari sembarangan, dan membentur teman lain. \\line\\line
+
+{\\fs24\\b VI. REMEDIAL & PENGAYAAN \\b0 \\line}
+1. Remedial: Diberikan kepada peserta didik yang belum mencapai KKTP (terutama pada aspek teknik gerak yang aman). Guru memberikan bimbingan khusus melatih gerakan squat atau shuttle-run dengan tempo yang lebih lambat secara individual di pinggir lapangan. \\line
+2. Pengayaan: Diberikan kepada peserta didik yang telah melampaui KKTP. Mereka ditugaskan menjadi mentor/asisten pelatih bagi kelompok lain yang masih kesulitan menghitung denyut nadi atau mengatur teknik pergerakan. \\line\\line
+
+{\\fs24\\b VII. REFLEKSI GURU & PESERTA DIDIK \\b0 \\line}
+1. Refleksi Guru: \\line
+- Apakah pembagian 3 zona rotasi berjalan tertib dan aman dengan rasio jumlah siswa 60 di lapangan bulutangkis? \\line
+- Apakah seluruh siswa terlibat aktif dalam proses analisis data kebugaran di LKPD? \\line
+2. Refleksi Peserta Didik: \\line
+- Bagian aktivitas manakah yang paling menantang bagi saya hari ini? Mengapa? \\line
+- Apakah saya sudah menjadi teman kelompok yang baik dan peduli pada keselamatan rekan saya? \\line\\line
+
+{\\fs24\\b VIII. GLOSARIUM & DAFTAR PUSTAKA \\b0 \\line}
+1. Glosarium: \\line
+- Active HR (Heart Rate): Frekuensi denyut nadi/detak jantung yang diukur secara manual langsung sesaat setelah seseorang selesai melakukan latihan fisik intensif. \\line
+- BPM (Beats Per Minute): Satuan internasional untuk menghitung frekuensi detak jantung dalam hitungan satu menit penuh. \\line
+- Cardiorespiratory (Daya Tahan Jantung-Paru): Kemampuan sistem jantung, paru-paru, dan pembuluh darah untuk berfungsi secara optimal dalam menyuplai oksigen ke otot-otot yang aktif saat melakukan aktivitas fisik dalam waktu yang lama. \\line
+- Cooperative Learning (Pembelajaran Kooperatif): Pendekatan pembelajaran yang menekankan kerja sama kelompok kecil secara terstruktur demi mencapai tujuan belajar bersama. \\line
+- Deep Learning (Pembelajaran Mendalam): Pendekatan belajar yang menuntut siswa tidak sekadar menghafal gerakan atau teori, melainkan mengalami langsung, merefleksikan, hingga mampu menghubungkan konsep materi dengan kehidupan nyata mereka sehari-hari. \\line
+- Peer-Coaching: Metode latihan di mana siswa bertindak sebagai tutor atau pelatih sebaya yang bertugas mengamati, memandu keselamatan, dan memberikan umpan balik korektif bagi rekan setimnya. \\line
+- Resting HR (Denyut Nadi Istirahat): Frekuensi detak jantung seseorang dalam satu menit saat tubuh berada dalam kondisi rileks, tenang, dan tidak sedang melakukan aktivitas berat. \\line
+- Station Rotation: Strategi pengelolaan kelas dengan cara membagi siswa ke dalam kelompok-kelompok yang berputar melalui beberapa pos (stasiun) aktivitas yang berbeda dalam waktu yang telah ditentukan secara berkala. \\line\\line
+2. Daftar Pustaka: \\line
+- Indrawan, A., & Cahyono, F. D. (2024). Pendidikan Jasmani, Olahraga, dan Kesehatan untuk SD/MI Kelas V. Jakarta: Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi Republik Indonesia. \\line
+- Kemendikbudristek. (2022). Panduan Pembelajaran dan Asesmen Pendidikan Anak Usia Dini, Pendidikan Dasar, dan Pendidikan Menengah. Jakarta: Badan Standar, Kurikulum, dan Asesmen Pendidikan. \\line
+- Muhajir, & Prasetijo, T. A. (2022). Buku Panduan Guru Pendidikan Jasmani, Olahraga, dan Kesehatan untuk SD/MI Kelas V. Jakarta: Pusat Kurikulum dan Perbukuan, Kemendikbudristek. \\line\\line
+
+{\\fs24\\b IX. LAMPIRAN: LEMBAR KERJA PESERTA DIDIK (LKPD) \\b0 \\line}
+"LABORATORIUM JANTUNGKU" \\line
+Tujuan: Menganalisis perubahan denyut nadi sebelum dan sesudah aktivitas fisik. \\line
+(Tabel pencatatan Nadi Awal vs Nadi Aktif di Stasiun 1, 2, dan 3) \\line
+Pertanyaan Diskusi: \\line
+1. Mengapa denyut nadi kalian meningkat setelah melakukan aktivitas di stasiun tersebut? \\line
+2. Sebutkan 2 contoh aktivitas sehari-hari yang membutuhkan daya tahan jantung yang baik! \\line\\line
+
+{\\fs24\\b X. LEMBAR PENGESAHAN \\b0 \\line}
+\\line
+Mengetahui, \\tab\\tab\\tab\\tab\\tab\\tab\\tab Kediri, Tabanan, 2026 \\line
+Kepala SD Negeri 8 Banjar Anyar \\tab\\tab\\tab\\tab\\tab Guru PJOK, \\line\\line\\line\\line\\line
+\\b Made Arcita, S.Pd., M.Pd. \\b0 \\tab\\tab\\tab\\tab\\tab\\tab\\b Gede Ardy Putrawan, S.Pd. \\b0 \\line
+NIP. 19780512 200501 1 008 \\tab\\tab\\tab\\tab\\tab NIP. 19931015 201903 1 012 \\line
+}`;
+
+            // Create blob with the RTF mime-type
+            const blob = new Blob([rtfContent], { type: 'application/rtf;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            
+            const cleanFilename = appData.materi.replace(/[^a-zA-Z0-9]/g, "_");
+            a.download = `Modul_Ajar_PJOK_${cleanFilename}_SDN8.rtf`;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
+
